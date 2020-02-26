@@ -64,16 +64,41 @@ function saveImageToContainer($filename)
     global $store, $db;
 
     $mime = mime_content_type($filename);
-    $suffix = ".png";
+    $suffix = '';
+
+    logMsg('Saving: ' . $filename . ' with type: ' . $mime);
+
+    $info = pathinfo($filename);
+    if(array_key_exists('extension', $info)) {
+        $suffix = $info['extension'];
+    }
+
     if ($mime === 'video/mp4') {
         $suffix = '.mp4';
     }
+
     if ($mime === 'video/quicktime') {
         $suffix = '.mov';
     }
 
     if ($mime === 'image/jpeg') {
         $suffix = '.jpg';
+    }
+
+    if ($mime === 'image/png') {
+        $suffix = '.png';
+    }
+
+    if ($mime === 'application/pdf') {
+        $suffix = '.pdf';
+    }
+
+    if ($mime === 'application/zip') {
+        $suffix = '.zip';
+    }
+
+    if ($mime === 'text/plain') {
+        $suffix = '.txt';
     }
 
     // Neuen Zufallsdateinamen generieren

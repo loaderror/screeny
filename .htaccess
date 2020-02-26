@@ -11,10 +11,23 @@
 </FilesMatch>
 
 RewriteEngine On
+
+# Bilder
 RewriteRule ^([^/]*)\.png$ show.php?img=$1.png [L]
 RewriteRule ^([^/]*)\.jpg$ show.php?img=$1.jpg [L]
+
+# Video
 RewriteRule ^([^/]*)\.mp4$ show.php?img=$1.mp4 [L]
 RewriteRule ^([^/]*)\.mov$ show.php?img=$1.mov [L]
+
+# Audio
 RewriteRule ^([^/]*)\.mp3$ show.php?img=$1.mp3 [L]
+RewriteRule ^([^/]*)\.wav$ show.php?img=$1.wav [L]
+
+# Archive
 RewriteRule ^([^/]*)\.zip$ show.php?img=$1.zip [L]
+RewriteRule ^([^/]*)\.7z$ show.php?img=$1.7z [L]
+
+# Other Stuff
 RewriteRule ^([^/]*)\.pdf$ show.php?img=$1.pdf [L]
+RewriteRule ^([^/]*)\.txt$ show.php?img=$1.txt [L]
