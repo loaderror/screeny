@@ -9,6 +9,9 @@ $httpurl = 'https://<domain>.<tld>/';
 $store = __DIR__ . '/screenshots/';
 $sessionKey = '<random session key for authentication>';
 
+global $debug;
+$debug = true;
+
 // MySQL-Datenbankverbindung
 global $db;
 $db = new SQL();
