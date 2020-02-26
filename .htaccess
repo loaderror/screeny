@@ -1,0 +1,20 @@
+<Files screenshots/>
+    Deny from all
+</Files>
+
+<FilesMatch "\.ht.*$">
+    Deny from all
+</FilesMatch>
+
+<FilesMatch ".*\.log$">
+    Deny from all
+</FilesMatch>
+
+RewriteEngine On
+RewriteRule ^([^/]*)\.png$ show.php?img=$1.png [L]
+RewriteRule ^([^/]*)\.jpg$ show.php?img=$1.jpg [L]
+RewriteRule ^([^/]*)\.mp4$ show.php?img=$1.mp4 [L]
+RewriteRule ^([^/]*)\.mov$ show.php?img=$1.mov [L]
+RewriteRule ^([^/]*)\.mp3$ show.php?img=$1.mp3 [L]
+RewriteRule ^([^/]*)\.zip$ show.php?img=$1.zip [L]
+RewriteRule ^([^/]*)\.pdf$ show.php?img=$1.pdf [L]

@@ -1,0 +1,113 @@
+body {
+    padding-top: 3rem;
+}
+
+.jumbotron {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    margin-bottom: 0;
+    background-color: #fff;
+}
+
+.jumbotron p:last-child {
+    margin-bottom: 0;
+}
+
+.jumbotron-heading {
+    font-weight: 300;
+}
+
+.jumbotron .container {
+    max-width: 40rem;
+}
+
+.album {
+    min-height: 50rem; /* Can be removed; just added for demo purposes */
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    background-color: #f7f7f7;
+}
+
+.card {
+    width: 285px;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+}
+
+.card {
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+@-moz-document url-prefix() {
+    .card {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    #entries {
+        gap: 10px 25px;
+    }
+}
+
+.card {
+    width: 290px;
+    min-width: 290px;
+    max-width: 290px;
+    padding: .85rem;
+    margin-bottom: 2rem;
+    border: 1px solid #c3c3c3;
+    border-radius: 15px;
+}
+
+.card > img {
+    margin-bottom: .75rem;
+}
+
+.card-text {
+    font-size: 85%;
+    overflow: hidden;
+}
+
+.screenshot {
+    overflow: hidden;
+}
+
+.screenshot img {
+    width: 259px;
+    height: 205px;
+    object-fit: contain;
+}
+
+.editTags, .delScreenshot {
+    position: absolute;
+    display: none;
+    top: 15px;
+}
+
+.editTags {
+    left: 15px;
+}
+
+.delScreenshot {
+    right: 15px;
+}
+
+.card:hover .editTags, .card:hover .delScreenshot {
+    display: block;
+}
+
+.tags {
+    overflow: hidden;
+    max-height: 40px;
+    color: #c3c3c3;
+}
+
+footer {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+footer p {
+    margin-bottom: .25rem;
+}

@@ -1,0 +1,15 @@
+<?php
+require_once('lib.php');
+require_once('SQL.php');
+
+error_reporting(E_ALL);
+
+$user = array('<username>' => '<password>');
+$httpurl = 'https://<domain>.<tld>/';
+$store = __DIR__ . '/screenshots/';
+$sessionKey = '<random session key for authentication>';
+
+// MySQL-Datenbankverbindung
+global $db;
+$db = new SQL();
+$db->connect('127.0.0.1', '<username>', '<password>', '<database>');
