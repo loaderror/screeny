@@ -11,7 +11,7 @@
 				<textarea class="form-control" id="editTagsField" rows="5" placeholder="tag1, tag2, tag3, ..." autofucus></textarea>
 			</div>
 			<div class="modal-footer p-2">
-				<button id="saveTags" type="button" class="btn btn-sm btn-primary">speichern</button>
+				<button id="saveTags" type="button" class="btn btn-sm btn-primary">Speichern</button>
 			</div>
 		</div>
 	</div>

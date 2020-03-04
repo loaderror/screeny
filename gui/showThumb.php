@@ -14,6 +14,7 @@ if (isset($_GET['img']) && preg_match('/^[a-zA-Z0-9_\.\[\]]+$/', $_GET['img'])) 
 
     $padding = null;
     $file = $store . $ret['filename'];
+    $mime = $ret['mimetype'];
     $thumbFile = $file . '.thumbs.png';
 
     if (file_exists($thumbFile)) {
@@ -21,7 +22,6 @@ if (isset($_GET['img']) && preg_match('/^[a-zA-Z0-9_\.\[\]]+$/', $_GET['img'])) 
         sendFile($thumbFile);
     } else {
         if (file_exists($file)) {
-            $mime = mime_content_type($file);
             logMsg('Mimetype: ' . $mime);
             $outputFile = true;
 

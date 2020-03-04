@@ -1,12 +1,19 @@
 <?php
 /*
 Written by Tobias Mädel (t.maedel@alfeld.de) - http://tbspace.de
-Overhault by Steven Tappert (mail@steven-tappert.de) - https://steven-tappert.de
+Overhaul by Steven Tappert (mail@steven-tappert.de) - https://steven-tappert.de
 */
 
-function isDebugEnabled() {
+function isDebugEnabled(): bool
+{
     global $debug;
     return $debug;
+}
+
+function isDebugEchoEnabled(): bool
+{
+    global $outputDebug;
+    return $outputDebug;
 }
 
 function fileExists($filename)
@@ -51,7 +58,7 @@ function imageValid($filename)
 {
     $mime = mime_content_type($filename);
     //mail("tobias@tbspace.de", "asdf", print_r($mime, true));
-    if ($mime === "video/mp4" || $mime === "video/quicktime") {
+    if ($mime === 'video/mp4' || $mime === 'video/quicktime') {
         return true;
     }
 
@@ -69,7 +76,7 @@ function saveImageToContainer($filename)
     logMsg('Saving: ' . $filename . ' with type: ' . $mime);
 
     $info = pathinfo($filename);
-    if(array_key_exists('extension', $info)) {
+    if (array_key_exists('extension', $info)) {
         $suffix = $info['extension'];
     }
 
@@ -105,21 +112,23 @@ function saveImageToContainer($filename)
     $newURL = generateFreeURL() . $suffix;
 
     $timestamp = time();
-    $year = date("Y", $timestamp);
-    $month = date("m", $timestamp);
+    $year = date('Y', $timestamp);
+    $month = date('m', $timestamp);
 
     @mkdir($store . $year);
-    @mkdir($store . $year . "/" . $month);
+    @mkdir($store . $year . '/' . $month);
 
-    $path = $store . $year . "/" . $month . "/" . $newURL;
+    $path = $store . $year . '/' . $month . '/' . $newURL;
 
     move_uploaded_file($filename, $path);
 
-    $db->query("INSERT INTO `screenshots` (`url`, `filename`, `date`) VALUES 
- 		('" . $db->escape($newURL) . "', 
- 		'" . $db->escape($year . "/" . $month . "/" . $newURL) . "', 
- 		FROM_UNIXTIME(" . $db->escape($timestamp) . ")
- 		)");
+    $sqlUrl = $db->escape($newURL);
+    $sqlFilename = $db->escape($year . '/' . $month . '/' . $newURL);
+    $sqlTimestamp = $db->escape($timestamp);
+    $sqlMimetype = $db->escape(mime_content_type($path)); // Use newly copied file
+
+    $db->query("INSERT INTO `screenshots` (`url`, `filename`, `date`, `mimetype`) VALUES
+        ('$sqlUrl', '$sqlFilename', FROM_UNIXTIME($sqlTimestamp), '$sqlMimetype')");
 
     return $newURL;
 }
@@ -136,11 +145,23 @@ function validateAccount()
     return false;
 }
 
+function getUser()
+{
+    if (in_array('username', $_REQUEST, true)) {
+        return $_REQUEST['username'];
+    }
+
+    return null;
+}
 
 function logMsg(...$msg)
 {
-    if(isDebugEnabled()) {
-        file_put_contents(__DIR__ . DIRECTORY_SEPARATOR . 'debug.log', implode("\n", $msg) . "\n", FILE_APPEND);
+    if (isDebugEnabled()) {
+        if (isDebugEchoEnabled()) {
+            echo implode(' ', $msg) . PHP_EOL;
+        }
+
+        file_put_contents(__DIR__ . DIRECTORY_SEPARATOR . 'debug.log', implode("\n", $msg) . PHP_EOL, FILE_APPEND);
     }
 }
 
@@ -158,7 +179,7 @@ function execWithLog($cmd)
     logMsg('exit-code: ' . $returnVar);
 
     if ($output !== null) {
-        if(is_array($output)) {
+        if (is_array($output)) {
             $output = implode('\n', $output);
         }
 
@@ -174,14 +195,12 @@ function writeImThumb($file, $thumbFile, $padding = null)
     $thumbWidth = 750;
     $paddingCmd = $padding === null ? '' : '-extent ' . ($thumbWidth + $padding) . 'x' . ($thumbHeight + $padding);
 
-    // exec("convert -resize 750x570 -background white -gravity center -extent 750x570 -format jpg -quality 98 " . escapeshellarg($targetFile) . " " . escapeshellarg($thumbsfile) . "");
     $cmd = "convert -auto-orient -thumbnail '750x570>' $paddingCmd -gravity center -format png -quality 80 " . escapeshellarg($file) . ' ' . escapeshellarg($thumbFile);
     execWithLog($cmd);
 }
 
 function writeFfmpegThumb($file, $thumbFile)
 {
-    // ffmpeg -i ifqmphekzls.mp4 -vframes 1 -an -ss 30 ifqmphekzls.mp4.thumb.png
     $cmd = 'ffmpeg -i ' . escapeshellarg($file) . ' -vframes 1 -an -ss 5 -vf scale=750:-1 ' . escapeshellarg($thumbFile);
     execWithLog($cmd);
 }

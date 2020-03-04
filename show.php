@@ -102,5 +102,4 @@ if (isset($_GET['img']) && preg_match('/^[a-zA-Z0-9_\.\[\]]+$/', $_GET['img'])) 
 } else {
     header('HTTP/1.1 404 Not Found');
     header('X-Reason: Last Die');
-    die('Finally');
 }

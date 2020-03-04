@@ -10,7 +10,19 @@ file_put_contents("requestLog.log", "---------------------------------------\n",
 if (!validateAccount())
     die();
 
-$uploadFilename = $_FILES['image']['tmp_name'];
+$upload_filename = null;
+
+if(in_array('image', $_FILES)) {
+    $uploadFilename = $_FILES['image']['tmp_name'];
+}
+
+if(in_array('file', $_FILES)) {
+    $uploadFilename = $_FILES['file']['tmp_name'];
+}
+
+if(!$upload_filename) {
+    die();
+}
 
 if (!imageValid($uploadFilename))
     die();

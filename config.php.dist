@@ -1,18 +1,26 @@
 <?php
+global $db, $debug, $outputDebug;
 require_once('lib.php');
 require_once('SQL.php');
 
 error_reporting(E_ALL);
 
-$user = array('<username>' => '<password>');
-$httpurl = 'https://<domain>.<tld>/';
+// Site Settings
+$httpurl = 'https://<domain>.<tld>//';
+$title = 'Screenshots';
+$logoUrl = null; // absolute or relative logo url
+
+// Storage
 $store = __DIR__ . '/screenshots/';
+
+// Authentication
+$user = ['<username>' => '<password>'];
 $sessionKey = '<random session key for authentication>';
 
-global $debug;
+// Debugging
 $debug = true;
+$outputDebug = false;
 
 // MySQL-Datenbankverbindung
-global $db;
 $db = new SQL();
-$db->connect('127.0.0.1', '<username>', '<password>', '<database>');
+$db->connect('127.0.0.1', '<db-username>', '<db-password>', '<db-name>');

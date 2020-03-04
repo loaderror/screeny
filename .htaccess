@@ -10,6 +10,10 @@
     Deny from all
 </FilesMatch>
 
+<FilesMatch "^\\_.*$">
+    Deny from all
+</FilesMatch>
+
 RewriteEngine On
 
 # Bilder

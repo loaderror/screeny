@@ -1,3 +1,4 @@
+<?php include_once 'config.php' ?>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -7,7 +8,7 @@
     <meta name="author" content="Tobias Mädel, Steven Tappert">
     <meta name="robots" content="noindex">
 
-    <title>Dark-IT.net Screenshots</title>
+    <title><?= $title ?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
@@ -28,8 +29,9 @@
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="/gui/">
-        <img src="assets/images/dark-it_logo_path_white.svg" alt="Dark-IT Logo" height="25"
-             class="d-inline-block align-top"/>
+        <?php if (strlen($logoUrl) > 1): // >1 to ignore boolean values ?>
+        <img src="<?= $logoUrl ?>" alt="Logo" height="25" class="d-inline-block align-top"/>
+        <?php endif; ?>
         Screenshots
     </a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"

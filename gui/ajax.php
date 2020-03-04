@@ -19,9 +19,9 @@ if (isset($_REQUEST['fnc'])) {
             }
 
             $offset = (int)trim(strip_tags(($_REQUEST['offset'] ?? 0)));
-            $total = $db->fetch("SELECT COUNT( `id` ) AS `total` FROM `screenshots` WHERE `hidden` = 0 " . $where, "total");
-            $entries = $db->fetch("SELECT * FROM `screenshots` WHERE `hidden` = 0 " . $where . " ORDER BY `date` DESC LIMIT " . $db->escape($offset) . ", 24");
-            die(json_encode(array("total" => $total, "offset" => $offset, "entries" => $entries)));
+            $total = $db->fetch('SELECT COUNT( `id` ) AS `total` FROM `screenshots` WHERE `hidden` = 0 ' . $where, "total");
+            $entries = $db->fetch('SELECT * FROM `screenshots` WHERE `hidden` = 0 ' . $where . ' ORDER BY `date` DESC LIMIT ' . $db->escape($offset) . ', 24');
+            die(json_encode(array('total' => $total, 'offset' => $offset, 'entries' => $entries)));
             break;
 
         // Speichert die TAGs zu einem Eintrag
