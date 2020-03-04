@@ -1,35 +1,29 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : tbspace.de
-Source Server Version : 50505
-Source Host           : localhost:3306
-Source Database       : screenshots
-
-Target Server Type    : MYSQL
-Target Server Version : 50505
-File Encoding         : 65001
-
-Date: 2020-02-18 22:10:58
-*/
-
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
 -- Table structure for screenshots
 -- ----------------------------
 DROP TABLE IF EXISTS `screenshots`;
-CREATE TABLE `screenshots` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `url` varchar(100) NOT NULL,
-  `filename` text DEFAULT NULL,
-  `date` datetime DEFAULT NULL,
-  `hidden` tinyint(1) unsigned DEFAULT 0,
-  `tags` text DEFAULT NULL,
-  `fulltext` longtext DEFAULT NULL,
-  `ocr` tinyint(1) unsigned DEFAULT 0,
-  PRIMARY KEY (`id`,`url`),
-  UNIQUE KEY `name` (`url`) USING BTREE,
-  FULLTEXT KEY `Tags` (`tags`),
-  FULLTEXT KEY `fulltext` (`fulltext`)
-) ENGINE=MyISAM AUTO_INCREMENT=20699 DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `screenshots`
+(
+    `id`       INT UNSIGNED AUTO_INCREMENT,
+    `url`      VARCHAR(100) CHARSET `utf8mb4` NOT NULL,
+    `filename` TEXT CHARSET `utf8mb4`         NULL,
+    `date`     DATETIME                       NULL,
+    `hidden`   TINYINT(1) UNSIGNED DEFAULT 0  NULL,
+    `tags`     TEXT CHARSET `utf8mb4`         NULL,
+    `fulltext` LONGTEXT CHARSET `utf8mb4`     NULL,
+    `ocr`      TINYINT(1) UNSIGNED DEFAULT 0  NULL,
+    `mimetype` VARCHAR(255)                   NULL,
+    PRIMARY KEY (`id`, `url`),
+    CONSTRAINT `name`
+        UNIQUE (`url`)
+)
+    ENGINE = MyISAM
+    COLLATE = `utf8mb4_unicode_520_ci`;
+
+CREATE FULLTEXT INDEX `Tags`
+    ON `screenshots` (`tags`);
+
+CREATE FULLTEXT INDEX `fulltext`
+    ON `screenshots` (`fulltext`);
