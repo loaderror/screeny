@@ -1,21 +1,5 @@
 <?php
 /**
- * @file
- * Verwaltet MySQL-Zugriffe
- * @brief
- * Verwaltet MySQL-Zugriffe
- *
- * @author    Stefan Piffl, Steven Tappert
- * @date    2013-04-09, 2020-02-26
- * @version    1.10
- *
- * @par "2013-08-30 SPi MySQL-Kodierung in UTF-8 geändert"
- * @par "2013-07-26 SPi Dateikodierung in UTF-8 geändert"
- * @par "2020-02-26 Fixed PHP7 types & code style"
- */
-
-
-/**
  * @brief Verwaltet MySQL-Zugriffe
  */
 class SQL
